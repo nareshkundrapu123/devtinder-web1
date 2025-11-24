@@ -52,7 +52,7 @@ const Navbar = () => {
   return (
   <div className="navbar bg-base-200 shadow-sm">
   <div className="flex-1">
-    <Link to="/" className="btn btn-ghost text-xl hover:shadow-gray-400">DevTinder</Link>
+    <Link to="/" className="btn btn-ghost text-xl hover:shadow-gray-400">DevTinder🧑‍💻</Link>
   </div>
  { user && <div className="flex gap-2">
     <p>Welcome , {user.firstName}</p>

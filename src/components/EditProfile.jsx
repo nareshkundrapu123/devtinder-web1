@@ -13,10 +13,11 @@ const EditProfile = ({user}) => {
     const [photoUrl,SetPhotoUrl]=useState(user.photoUrl);
     const [error,SetError]=useState(" ");
     const dispatch= useDispatch();
+    const [showtoast, setshowtoast]=useState(false);
 
 const saveProfile = async () => {
   try {
-    const res = await axios.patch(
+    const res = await axios.post(
       BASE_URL + "/profile/edit",
       { firstName, lastName, photoUrl, about },
       { withCredentials: true }
@@ -27,6 +28,10 @@ const saveProfile = async () => {
     // Adjust based on backend structure
     //dispatch(addUser(res.data.user || res.data));
       dispatch(addUser(res?.data?.user));
+      setshowtoast(true);
+      setTimeout(() => {
+        setshowtoast(false);
+      }, 3000);
     console.log("Profile updated successfully"); 
 
     SetError("");
@@ -39,11 +44,12 @@ const saveProfile = async () => {
 
 
   return (
-<div className='flex justify-center my-10 mx-35'>
+    <>
+<div className='flex justify-center my-17 mx-35'>
       <div className="flex justify-center w-1/2 gap-0">
   
   <div className="card-body max-w-1/2 bg-gray-200 rounded-2xl ">
-<h2 className='text-green-700'>Edit Profile</h2>
+<h2 className='text-black'>Edit Profile</h2>
     <label className="input validator my-5">
       
   <input
@@ -108,6 +114,13 @@ const saveProfile = async () => {
 </div>
 <UserCard user={{firstName,lastName,about,photoUrl}}/>
 </div>
+{showtoast && (<div className="toast toast-top toast-center my-16">
+
+  <div className="alert alert-success">
+    <span>Profile Updated successfully...</span>
+  </div>
+</div>)}
+</>
   )
 }
 
